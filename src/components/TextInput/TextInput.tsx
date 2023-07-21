@@ -4,10 +4,11 @@ import { FC } from 'react';
 
 const TextInput: FC<Props> = props => {
   const {
-    size = 'xl',
+    size = 'lg',
     radius = 'xl',
     styles = theme => ({
       input: {
+        borderStyle: 'none',
         fontWeight: 600,
         backgroundColor: theme.colors.bunting[6],
         color: 'white',
