@@ -11,3 +11,6 @@ RUN corepack prepare yarn@stable --activate
 
 # Simple prompt
 RUN /bin/bash -c "cd /root && echo \"PS1='$ '\" >> .bashrc && source .bashrc"
+
+# Install lsd
+RUN apt install lsd -y

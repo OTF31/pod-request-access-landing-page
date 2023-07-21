@@ -1,6 +1,7 @@
+import { MantineProvider } from '@mantine/core';
+
 import Home from '@/pages/Home';
 import { theme } from '@/theme';
-import { MantineProvider } from '@mantine/core';
 
 const App = () => {
   return (
