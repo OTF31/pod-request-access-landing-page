@@ -13,6 +13,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import applePodcast from '@/assets/desktop/apple-podcast.svg';
 import bgPatternDots from '@/assets/desktop/bg-pattern-dots.svg';
 import googlePodcasts from '@/assets/desktop/google-podcasts.svg';
+import imageHostDesktop from '@/assets/desktop/image-host.jpg';
 import logo from '@/assets/desktop/logo.svg';
 import pocketCasts from '@/assets/desktop/pocket-casts.svg';
 import spotify from '@/assets/desktop/spotify.svg';
@@ -23,6 +24,7 @@ import SubmitButton from './components';
 
 const Home = () => {
   const tablet = useMediaQuery('(min-width: 768px)');
+  const desktop = useMediaQuery('(min-width: 1440px)');
 
   return (
     <AppShell bg="riverStyx">
@@ -32,14 +34,27 @@ const Home = () => {
       <Image
         src={logo}
         width={140}
-        mx={{ base: 'auto', sm: 0 }}
+        mx={{ base: 'auto', sm: 0, xl: 160 }}
         my={{ base: 60, sm: 50 }}
         alt="logo"
       />
-      <Box pos="absolute" maw={490} top={0} right={0}>
-        {tablet && <Image src={imageHostTablet} />}
-      </Box>
-      <Box maw={{ sm: 635 }} bg={{ sm: 'riverStyx' }} pos="relative" mt={{ sm: 100 }}>
+      <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
+        <Image
+          src={desktop ? imageHostDesktop : imageHostTablet}
+          alt="image host"
+          pos="absolute"
+          top={{ sm: 0, xl: 130 }}
+          right={0}
+          maw={{ sm: 490, xl: 900 }}
+        />
+      </MediaQuery>
+      <Box
+        maw={{ sm: 635, xl: 720 }}
+        bg={{ sm: 'riverStyx' }}
+        pos="relative"
+        mt={{ sm: 100 }}
+        ml={{ xl: 160 }}
+      >
         <Stack ta={{ base: 'center', sm: 'left' }} fw={200} pt={{ sm: 100 }}>
           <Text color="screenGlow" fz={{ base: 26, sm: 48 }}>
             PUBLISH YOUR PODCASTS <Text color="white">EVERYWHERE.</Text>
@@ -55,7 +70,13 @@ const Home = () => {
             [theme.fn.largerThan('sm')]: { flexDirection: 'column-reverse' },
           })}
         >
-          <SimpleGrid cols={4} sx={{ alignItems: 'center' }} my={40} mr={{ sm: 100 }}>
+          <SimpleGrid
+            cols={4}
+            sx={{ alignItems: 'center' }}
+            my={40}
+            mr={{ sm: 100 }}
+            breakpoints={[{ minWidth: 'sm', cols: 4, spacing: 40 }]}
+          >
             <Image src={spotify} alt="spotify" />
             <Image src={applePodcast} alt="apple podcast" />
             <Image src={googlePodcasts} alt="google podcasts" />
@@ -72,8 +93,16 @@ const Home = () => {
           </Stack>
         </Stack>
       </Box>
-
-      {tablet && <Image src={bgPatternDots} alt="bg pattern dots" mt={150} maw={240} />}
+      <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
+        <Image
+          src={bgPatternDots}
+          alt="bg pattern dots"
+          mt={{ sm: 100, xl: -50 }}
+          maw={240}
+          pos={{ xl: 'absolute' }}
+          right={{ xl: 0 }}
+        />
+      </MediaQuery>
     </AppShell>
   );
 };
