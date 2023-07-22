@@ -1,6 +1,7 @@
 import { TextInput as MTextInput } from '@mantine/core';
-import { TextInputProps as Props } from './TextInput.types';
 import { FC } from 'react';
+
+import { TextInputProps as Props } from './TextInput.types';
 
 const TextInput: FC<Props> = props => {
   const {
@@ -19,7 +20,7 @@ const TextInput: FC<Props> = props => {
   } = props;
   const { ...rest } = props;
 
-  return <MTextInput {...{ size, radius, styles }} {...rest}></MTextInput>;
+  return <MTextInput {...{ size, radius, styles }} {...rest} />;
 };
 
 export default TextInput;

@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   AppShell,
   BackgroundImage,
@@ -9,6 +10,8 @@ import {
   Text,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
 import applePodcast from '@/assets/desktop/apple-podcast.svg';
 import bgPatternDots from '@/assets/desktop/bg-pattern-dots.svg';
@@ -19,12 +22,31 @@ import pocketCasts from '@/assets/desktop/pocket-casts.svg';
 import spotify from '@/assets/desktop/spotify.svg';
 import imageHostMobile from '@/assets/mobile/image-host.jpg';
 import imageHostTablet from '@/assets/tablet/image-host.jpg';
+import Button from '@/components/Button';
 import TextInput from '@/components/TextInput';
-import SubmitButton from './components';
+import { FormData } from '.';
+
+const schema = yup.object({
+  email: yup
+    .string()
+    .email('Oops! Please check your email')
+    .required('Email is a required field'),
+});
 
 const Home = () => {
+  const { control, handleSubmit, formState } = useForm<FormData>({
+    mode: 'onChange',
+    defaultValues: { email: '' },
+    resolver: yupResolver(schema),
+  });
   const tablet = useMediaQuery('(min-width: 768px)');
   const desktop = useMediaQuery('(min-width: 1440px)');
+
+  const onSubmit = (data: FormData) => alert('Submitted! ' + JSON.stringify(data));
+
+  const SubmitButton = () => {
+    return <Button onClick={handleSubmit(onSubmit)}>Request Access</Button>;
+  };
 
   return (
     <AppShell bg="riverStyx">
@@ -83,12 +105,22 @@ const Home = () => {
             <Image src={pocketCasts} alt="pocket casts" />
           </SimpleGrid>
           <Stack mt={{ sm: 40 }} maw={{ sm: 450 }}>
-            <TextInput
-              type="email"
-              placeholder="Email address"
-              rightSectionWidth={tablet ? 200 : 0}
-              rightSection={tablet ? <SubmitButton /> : null}
+            <Controller
+              name="email"
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <TextInput
+                  value={value}
+                  onChange={onChange}
+                  error={formState.errors.email?.message}
+                  type="email"
+                  placeholder="Email address"
+                  rightSectionWidth={tablet ? 200 : 0}
+                  rightSection={tablet ? <SubmitButton /> : null}
+                />
+              )}
             />
+
             {!tablet && <SubmitButton />}
           </Stack>
         </Stack>

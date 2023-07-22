@@ -1,3 +1,6 @@
-import { TextInput as MTextInput } from '@mantine/core';
+import {
+  TextInputProps as MTextInputProps,
+  TextInput as MTextInput,
+} from '@mantine/core';
 
-export type TextInputProps = typeof MTextInput.defaultProps & {};
+export type TextInputProps = MTextInputProps & typeof MTextInput.defaultProps;
