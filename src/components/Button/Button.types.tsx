@@ -1,3 +1,3 @@
-import { Button as MButton } from '@mantine/core';
+import { ButtonProps as MButtonProps, Button as MButton } from '@mantine/core';
 
-export type ButtonProps = typeof MButton.defaultProps & {};
+export type ButtonProps = MButtonProps & typeof MButton.defaultProps;
