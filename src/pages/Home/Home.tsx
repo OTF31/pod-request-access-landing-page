@@ -45,7 +45,11 @@ const Home = () => {
   const onSubmit = (data: FormData) => alert('Submitted! ' + JSON.stringify(data));
 
   const SubmitButton = () => {
-    return <Button onClick={handleSubmit(onSubmit)}>Request Access</Button>;
+    return (
+      <Button size="md" onClick={handleSubmit(onSubmit)}>
+        Request Access
+      </Button>
+    );
   };
 
   return (
@@ -115,12 +119,11 @@ const Home = () => {
                   error={formState.errors.email?.message}
                   type="email"
                   placeholder="Email address"
-                  rightSectionWidth={tablet ? 200 : 0}
+                  rightSectionWidth={tablet ? 180 : 0}
                   rightSection={tablet ? <SubmitButton /> : null}
                 />
               )}
             />
-
             {!tablet && <SubmitButton />}
           </Stack>
         </Stack>
